@@ -1,0 +1,25 @@
+###
+GET https://{{host}}:{{port}}/greets
+Accept: text/plain
+
+> {%
+    client.test("Response status should be 200", () => {
+        const expected = 200;
+        const actual = response.status;
+        client.assert(actual === expected, `Expected ${expected} but received ${actual}.`)
+    });
+
+    client.test("Response content-type should be 'text/plain'", () => {
+        const expected = "text/plain";
+
+        const actual = response.contentType.mimeType;
+        client.assert(actual === expected, `Expected ${expected} but received ${actual}.`)
+    });
+
+    client.test("Response content-type should contain 'Hello Elysia'", () => {
+        const expected = "Hello, Elysia!"; // 기댓값
+
+        const actual = (response.body);  // 결괏값, includes는 boolean 값으로 데이터를 넘김
+        client.assert(actual === expected, `Expected ${expected} but received ${actual}.`)
+    });
+%}
